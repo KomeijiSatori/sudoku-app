@@ -12,19 +12,21 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@capacitor/app": "5.0.6",
-    "@capacitor/core": "5.5.1",
-    "@capacitor/haptics": "5.0.6",
-    "@capacitor/keyboard": "5.0.6",
-    "@capacitor/status-bar": "5.0.6",
-    "@ionic/vue": "^7.0.0",
-    "@ionic/vue-router": "^7.0.0",
-    "ionicons": "^7.0.0",
+    "@capacitor/android": "3.5.1",
+    "@capacitor/app": "1.1.1",
+    "@capacitor/core": "3.5.1",
+    "@capacitor/haptics": "1.1.4",
+    "@capacitor/keyboard": "1.2.2",
+    "@capacitor/status-bar": "^1.0.8",
+    "@ionic/vue": "^6.0.0",
+    "@ionic/vue-router": "^6.0.0",
+    "lodash": "^4.17.21",
     "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@capacitor/cli": "5.5.1",
+    "@capacitor/cli": "3.5.1",
     "@vitejs/plugin-legacy": "^4.0.2",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/test-utils": "^2.3.0",
