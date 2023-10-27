@@ -116,23 +116,18 @@ table {
 }
 
 th, td {
-  padding: 0px;
-  border: 0px;
-  font-size: 10pt;
+  padding: 0;
+  border: 0;
 }
 
 .mainboard {
   table-layout: fixed;
-  width: 408px;
-  height: 408px;
   user-select: none;
+  margin: 0 auto;
 }
 
 .outerT {
   background: #fdfdfd;
-  border: 1px solid #bbbbbb;
-  height: 136px;
-  width: 136px;
 }
 
 .boardbox {
@@ -142,16 +137,13 @@ th, td {
 
 .innerT {
   font-family: verdana, arial, sans-serif;
-  font-size: 16pt;
   color: #000001;
-  border: 1px solid #888888;
-  width: 44px;
-  height: 44px;
   text-align: center;
 }
 
 .candtb {
   table-layout: fixed;
+  user-select: none;
   margin: 0 auto;
 }
 
@@ -159,10 +151,7 @@ th, td {
   text-align: center;
   padding: 0 0 0 0;
   color: #000001;
-  font-size: 8pt;
   font-family: verdana;
-  width: 14px;
-  height: 14px;
 }
 
 .factcell {
@@ -187,6 +176,82 @@ th, td {
 
 .candidate_related {
   background: rgb(143, 194, 198);
+}
+
+@media (max-width: 480px) {
+  .mainboard {
+    width: 90vw;
+    height: 90vw;
+  }
+
+  .outerT {
+    outline: 0.4vw solid #bbbbbb;
+    outline-offset: -0.4vw;
+    height: 30vw;
+    width: 30vw;
+  }
+
+  .boardbox {
+    height: 30vw;
+    width: 30vw;
+  }
+
+  .innerT {
+    font-size: 5.5vw;
+    outline: 0.1vw solid #bbbbbb;
+    outline-offset: -0.1vw;
+    width: 10vw;
+    height: 10vw;
+  }
+
+  .candtb {
+    width: 10vw;
+    height: 10vw;
+  }
+
+  .candtb td {
+    font-size: 2.5vw;
+    width: 3.3vw;
+    height: 3.3vw;
+  }
+}
+
+@media (min-width: 481px) {
+  .mainboard {
+    width: 408px;
+    height: 408px;
+  }
+
+  .outerT {
+    outline: 2px solid #bbbbbb;
+    outline-offset: -2px;
+    height: 136px;
+    width: 136px;
+  }
+
+  .boardbox {
+    height: 136px;
+    width: 136px;
+  }
+
+  .innerT {
+    font-size: 24px;
+    outline: 1px solid #bbbbbb;
+    outline-offset: -1px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .candtb {
+    width: 45px;
+    height: 45px;
+  }
+
+  .candtb td {
+    font-size: 12px;
+    width: 15px;
+    height: 15px;
+  }
 }
 
 </style>

@@ -28,7 +28,8 @@ export default {
 </script>
 
 <style>
-#app {
+body {
+  margin: 0;
 }
 
 .menu {

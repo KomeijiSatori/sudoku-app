@@ -9,9 +9,13 @@
     </div>
 
     <div class="numberpanel">
-      <div v-for="num in [...Array(9).keys()]" :key="num" @click="onClickNumber(num + 1)" class="numberbutton">{{ num + 1 }}</div>
-      <div class="numberbutton" @click="onEraseCell">Erase</div>
+      <div v-for="num in [...Array(5).keys()]" :key="num" @click="onClickNumber(num + 1)" class="numberbutton">{{ num + 1 }}</div>
     </div>
+    <div class="numberpanel">
+      <div v-for="num in [...Array(4).keys()]" :key="num" @click="onClickNumber(num + 6)" class="numberbutton">{{ num + 6 }}</div>
+      <div class="controlbutton" @click="onEraseCell">Erase</div>
+    </div>
+
   </div>
 </template>
 
@@ -92,36 +96,26 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 412px;
   user-select: none;
+  margin: 0 auto;
 }
 
 .controlbutton {
-  height: 50px;
-  width: 50px;
   background: #f3f3f3;
-  line-height: 50px;
   text-align: center;
 }
 
 .numberpanel {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-content: space-between;
   align-items: center;
-  width: 412px;
-  height: 120px;
-  column-gap: 40px;
-  margin-top: 16px;
   user-select: none;
+  margin: 0 auto;
 }
 
 .numberbutton {
-  height: 50px;
-  width: 50px;
   background: #f3f3f3;
-  line-height: 50px;
   text-align: center;
 }
 
@@ -131,6 +125,50 @@ export default {
 
 .noteon {
   background: rgb(0, 141, 246);
+}
+
+@media (max-width: 480px) {
+  .controlpanel {
+    width: 90vw;
+  }
+  .controlbutton {
+    height: 14vw;
+    width: 14vw;
+    line-height: 14vw;
+    font-size: 5vw;
+  }
+  .numberpanel {
+    width: 90vw;
+    margin-top: 6vw;
+  }
+  .numberbutton {
+    height: 14vw;
+    width: 14vw;
+    line-height: 14vw;
+    font-size: 7vw;
+  }
+}
+
+@media (min-width: 481px) {
+  .controlpanel {
+    width: 408px;
+  }
+  .controlbutton {
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    font-size: 20px;
+  }
+  .numberpanel {
+    width: 408px;
+    margin-top: 27px;
+  }
+  .numberbutton {
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    font-size: 20px;
+  }
 }
 
 </style>

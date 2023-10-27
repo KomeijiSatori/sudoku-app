@@ -52,16 +52,37 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 412px;
   user-select: none;
+  margin: 0 auto;
 }
 
 .menubutton {
-  height: 50px;
-  width: 50px;
   background: #f3f3f3;
-  line-height: 50px;
   text-align: center;
+}
+
+@media (max-width: 480px) {
+  .menupanel {
+    width: 90vw;
+  }
+  .menubutton {
+    height: 14vw;
+    width: 14vw;
+    line-height: 14vw;
+    font-size: 5vw;
+  }
+}
+
+@media (min-width: 481px) {
+  .menupanel {
+    width: 408px;
+  }
+  .menubutton {
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    font-size: 20px;
+  }
 }
 
 </style>
