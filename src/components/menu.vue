@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="menupanel">
+      <div class="menubutton" @click="onClickNew">New</div>
       <div class="menubutton" @click="onClickLoad">Load</div>
       <div class="menubutton" @click="onResetBoard">Reset</div>
     </div>
@@ -9,28 +10,52 @@
 
 <script>
 
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
+const boardStr2Ary = (boardTxt) => {
+  if (null === boardTxt || boardTxt.length !== 9 * 9) {
+    return null;
+  }
+  let ary = [...Array(9)].map(() => Array(9).fill(null));
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      let curChar = boardTxt[i * 9 + j];
+      if (curChar >= '1' && curChar <= '9') {
+        ary[i][j] = curChar - '0';
+      }
+    }
+  }
+  return ary;
+}
 
 export default {
   name: 'MenuPanel',
 
+  mounted() {
+    this.initPuzzle();
+  },
+
+  computed: {
+    ...mapGetters(["getPuzzleStr", "getPuzzleCount"]),
+  },
+
   methods: {
-    ...mapMutations(["resetBoard", "loadBoard"]),
+    ...mapMutations(["resetBoard", "loadBoard", "initPuzzle"]),
+    onClickNew() {
+      let totalCnt = this.getPuzzleCount();
+      let ind = Math.floor(Math.random() * totalCnt);
+      let boardStr = this.getPuzzleStr(ind);
+      let ary = boardStr2Ary(boardStr)
+      if (null !== ary) {
+        this.loadBoard(ary);
+      }
+    },
     onClickLoad() {
       let boardTxt = prompt("Enter a string of 81 numbers (you can express blanks as 0, *, _ or '.')");
-      if (null === boardTxt || boardTxt.length !== 9 * 9) {
+      let ary = boardStr2Ary(boardTxt)
+      if (null === ary) {
         alert("not getting 81 numbers!")
         return;
-      }
-      let ary = [...Array(9)].map(() => Array(9).fill(null));
-      for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-          let curChar = boardTxt[i * 9 + j];
-          if (curChar >= '1' && curChar <= '9') {
-            ary[i][j] = curChar - '0';
-          }
-        }
       }
       this.loadBoard(ary);
     },
