@@ -21,7 +21,7 @@ class CandIndResult {
 /**
  * check if the selected candidates meets the requirement of naked pairs and return the result
  * @param {Array} candAry [the array of candidates to be checked]
- * @param {Array} selectedInds [the count of cells to be selected]
+ * @param {Array} selectedInds [the index of cells to be selected]
  * @returns {Array[CandIndResult]} [the result of the naked candidates]
  */
 const getCandIndResult = (candAry, selectedInds) => {
@@ -94,9 +94,10 @@ const getCandResult = (cellCands, cnt, indToPosFunc) => {
  * get naked candidates of the board
  * @param {Array} candBoard [the candidates of all unknown cells]
  * @param {number} cnt [the number of the combination, ie: 1 for naked single, 2 for naked pairs, 3 for naked triples, .etc]
+ * @param {boolean} filterNonElim [whether to filter the result with empty eliminations]
  * @returns {Array[CandResult]} [the result of the naked candidates]
  */
-const nakedCands = (candBoard, cnt) => {
+const nakedCands = (candBoard, cnt, filterNonElim = true) => {
   let res = [];
   // check rows
   for (let rowInd = 0; rowInd < 9; rowInd++) {
@@ -104,7 +105,7 @@ const nakedCands = (candBoard, cnt) => {
       return { row: rowInd, col: ind };
     }
     let curCells = candBoard[rowInd];
-    res = [...res, ...getCandResult(curCells, cnt, mapFunc)];
+    res = _.union(res, getCandResult(curCells, cnt, mapFunc));
   }
   // check cols
   for (let colInd = 0; colInd < 9; colInd++) {
@@ -114,7 +115,7 @@ const nakedCands = (candBoard, cnt) => {
     let curCells =[...Array(9).keys()].map(rowInd => { 
       return candBoard[rowInd][colInd];
     });
-    res = [...res, ...getCandResult(curCells, cnt, mapFunc)];
+    res = _.union(res, getCandResult(curCells, cnt, mapFunc));
   }
   // check boxes
   for (let boxInd = 0; boxInd < 9; boxInd++) {
@@ -130,9 +131,27 @@ const nakedCands = (candBoard, cnt) => {
       let colOffset = cellInd % 3;
       return candBoard[rowStartInd + rowOffset][colStartInd + colOffset];
     });
-    res = [...res, ...getCandResult(curCells, cnt, mapFunc)];
+    res = _.union(res, getCandResult(curCells, cnt, mapFunc));
+  }
+  // filter results with no eliminations
+  if (filterNonElim) {
+    res = res.filter(candResult => candResult.candRemoved.map(candsInfo => candsInfo.cands.length > 0).reduce((prev, cur) => prev | cur, false));
   }
   return res;
 }
 
 export { nakedCands };
+
+// let cands = [
+//   [[1, 4, 6, 7], [], [5, 6, 7], [1, 2, 4, 5, 7], [], [1, 2], [2, 4, 7], [], [2, 4]],
+//   [[1, 4, 7], [], [5, 7], [1, 2, 4, 5, 7], [1, 2, 7, 8], [1, 2, 8], [2, 4, 7], [], []],
+//   [[], [4, 7], [], [4, 7], [], [], [], [], []],
+//   [[6, 7], [], [6, 7], [], [1, 3], [], [], [], [1, 3]],
+//   [[], [], [], [], [2, 3], [], [2, 3], [], []],
+//   [[], [], [], [], [1, 2], [], [], [], [1, 2]],
+//   [[], [], [], [1, 2], [], [1, 2], [], [], []],
+//   [[], [4, 7], [7, 8, 9], [3, 7], [3, 7, 8], [6, 8, 9], [3, 4, 6], [], []],
+//   [[4, 7], [], [7, 8, 9], [3, 7], [], [6, 8, 9], [3, 4, 6], [], [3, 4]]
+// ];
+// let res = nakedCands(cands, 2);
+// console.log(res);
