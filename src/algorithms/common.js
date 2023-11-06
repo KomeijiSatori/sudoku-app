@@ -30,4 +30,49 @@ function* combination(m, n) {
   }
 }
 
-export { combination };
+/**
+ * judge if candidates is on the same row, if so, return the row id, otherwise null
+ * @param {Array} candsPos [the position of the candidates]
+ * @returns {Number} [the index of the row]
+ */
+function getSameRowIdx(candsPos) {
+  if (candsPos.length === 0) {
+    return null;
+  }
+  return candsPos
+  .map(candPos => candPos.row)
+  .reduce((prev, cur) => prev === cur ? cur : null);
+}
+
+/**
+ * judge if candidates is on the same col, if so, return the col id, otherwise null
+ * @param {Array} candsPos [the position of the candidates]
+ * @returns {Number} [the index of the col]
+ */
+function getSameColIdx(candsPos) {
+  if (candsPos.length === 0) {
+    return null;
+  }
+  return candsPos
+  .map(candPos => candPos.col)
+  .reduce((prev, cur) => prev === cur ? cur : null);
+}
+
+/**
+ * judge if candidates is on the same box, if so, return the box id, otherwise null
+ * @param {Array} candsPos [the position of the candidates]
+ * @returns {Number} [the index of the box]
+ */
+function getSameBoxIdx(candsPos) {
+  if (candsPos.length === 0) {
+    return null;
+  }
+  return candsPos
+  .map(candPos => {
+    return Math.floor(candPos.row / 3) * 3 + Math.floor(candPos.col / 3);
+  })
+  .reduce((prev, cur) => prev === cur ? cur : null);
+}
+
+
+export { combination, getSameRowIdx, getSameColIdx, getSameBoxIdx };
