@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+import { CandResult } from '@/utils/models';
+
 /**
  * select m elements from array of size n, return the index of selected items per iteration
  * @param {Array} m [the numbers of elements to be selected]
@@ -75,4 +77,25 @@ function getSameBoxIdx(candsPos) {
 }
 
 
-export { combination, getSameRowIdx, getSameColIdx, getSameBoxIdx };
+function mergeResult(candResults) {
+  return _.values(_.groupBy(candResults, result => {
+    return _.sortBy(result.candRelated, JSON.stringify)
+      .map(candInfo => `${candInfo.row} ${candInfo.col} ${_.sortBy(candInfo.cands).join(',')}`)
+  })).map(sameCandRelatedResults => {
+    let candRealted = sameCandRelatedResults[0].candRelated;
+    let candRemoved = _.uniqBy(sameCandRelatedResults
+        .map(result => _.sortBy(result.candRemoved)), JSON.stringify)
+      .flat();
+    return new CandResult(candRealted, candRemoved);
+  })
+}
+
+function filterNonElimResult(candResults) {
+  return candResults
+    .filter(candResult => candResult.candRemoved
+      .map(candsInfo => candsInfo.cands.length > 0)
+      .reduce((prev, cur) => prev | cur, false)
+    );
+}
+
+export { combination, getSameRowIdx, getSameColIdx, getSameBoxIdx, mergeResult, filterNonElimResult };

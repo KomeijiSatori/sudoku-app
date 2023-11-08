@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import { CandResult, CandsInfo } from '@/utils/models';
-import { combination } from '@/algorithms/common';
+import { combination, mergeResult, filterNonElimResult } from '@/algorithms/common';
 
 
 /**
@@ -97,9 +97,10 @@ const hiddenCands = (candBoard, cnt, filterNonElim = true) => {
     res = _.union(res, getCandResult(curCells, cnt, mapFunc));
   }
   res = _.uniqBy(res, JSON.stringify);
+  res = mergeResult(res);
   // filter results with no eliminations
   if (filterNonElim) {
-    res = res.filter(candResult => candResult.candRemoved.map(candsInfo => candsInfo.cands.length > 0).reduce((prev, cur) => prev | cur, false));
+    res = filterNonElimResult(res);
   }
   return res;
 }

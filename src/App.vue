@@ -9,6 +9,7 @@
   <div class="buttons">
     <Button />
   </div>
+  <Hint />
 </div>
 </template>
 
@@ -16,6 +17,7 @@
 import Menu from '@/components/menu.vue';
 import Board from '@/components/board.vue';
 import Button from '@/components/button.vue';
+import Hint from '@/components/hint.vue';
 
 export default {
   name: 'App',
@@ -23,6 +25,7 @@ export default {
     Board,
     Button,
     Menu,
+    Hint,
   }
 }
 </script>

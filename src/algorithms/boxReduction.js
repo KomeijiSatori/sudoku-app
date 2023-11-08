@@ -1,4 +1,4 @@
-import { getSameBoxIdx } from "@/algorithms/common";
+import { getSameBoxIdx, mergeResult, filterNonElimResult } from "@/algorithms/common";
 import { CandResult, CandsInfo } from '@/utils/models';
 
 /**
@@ -74,9 +74,10 @@ const boxReduction = (candBoard, filterNonElim = true) => {
       }
     }
   }
+  res = mergeResult(res);
   // filter results with no eliminations
   if (filterNonElim) {
-    res = res.filter(candResult => candResult.candRemoved.map(candsInfo => candsInfo.cands.length > 0).reduce((prev, cur) => prev | cur, false));
+    res = filterNonElimResult(res);
   }
   return res;
 }

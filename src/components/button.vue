@@ -5,7 +5,7 @@
       <div class="controlbutton" @click="onClickRedo">Redo</div>
       <div class="controlbutton" @click="onToggleNote" :class="getNoteButtonClass">Note</div>
       <div class="controlbutton" @click="onAutoFillCandidates">Cand</div>
-      <div class="controlbutton">Hint</div>
+      <div class="controlbutton" @click="onClickHint">Hint</div>
     </div>
 
     <div class="numberpanel">
@@ -21,7 +21,7 @@
 
 <script>
 
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 import { getCellIdx } from "@/utils/funcs";
 import { CELL_TYPES } from "@/utils/enums";
@@ -38,6 +38,7 @@ export default {
 
   methods: {
     ...mapMutations(["inputValue", "inputCandidate", "setCellFocused", "eraseCell", "autoFillCandidates", "undoBoard", "redoBoard"]),
+    ...mapActions(["initHint"]),
     onToggleNote() {
       this.isInputValue = !this.isInputValue;
     },
@@ -80,6 +81,9 @@ export default {
       this.redoBoard();
       this.setCellFocused(this.getSelectedCell());
     },
+    onClickHint() {
+      this.initHint();
+    }
   },
 
   data() {

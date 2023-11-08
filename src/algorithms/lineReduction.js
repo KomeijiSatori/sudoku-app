@@ -1,8 +1,8 @@
-import { getSameRowIdx, getSameColIdx } from "@/algorithms/common";
+import { getSameRowIdx, getSameColIdx, mergeResult, filterNonElimResult } from "@/algorithms/common";
 import { CandResult, CandsInfo } from '@/utils/models';
 
 /**
- * get line reduction of numbers on same row or col of a box, also known as pointing pairs
+ * get line reduction of numbers on same row or col of a box, also known as pointing pairs/triples
  * @param {Array} candBoard [the candidates of all unknown cells]
  * @param {boolean} filterNonElim [whether to filter the result with empty eliminations]
  * @returns {Array[CandResult]} [the result of the line reduction]
@@ -52,9 +52,10 @@ const lineReduction = (candBoard, filterNonElim = true) => {
       }
     }
   }
+  res = mergeResult(res);
   // filter results with no eliminations
   if (filterNonElim) {
-    res = res.filter(candResult => candResult.candRemoved.map(candsInfo => candsInfo.cands.length > 0).reduce((prev, cur) => prev | cur, false));
+    res = filterNonElimResult(res);
   }
   return res;
 }
